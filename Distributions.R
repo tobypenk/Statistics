@@ -127,17 +127,24 @@ manipulate(plot(stepfun(k.min:k.max,
 #       where x is an integer.
 
 ### PMF: ###
-x <- 1:30
-l.init <- 20
+# Say the average number of heads per x flips is l; then what is the chance of getting
+#       exactly x heads?
+x.init <- 20
+l.init <- 10
 e <- exp(1)
 
 y <- (e^(-l))*(l^x)/factorial(x)
 
-manipulate(plot(x,
+manipulate(plot(x <- 0:n,
                 (e^(-l))*(l^x)/factorial(x)),
            l=slider(min=min(x),
                     max=max(x),
-                    initial=l.init))
+                    initial=l.init),
+           n=slider(0,
+                    200,
+                    initial=x.init))
+
+### CDF: ###
 
 
 

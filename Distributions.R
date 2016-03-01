@@ -107,3 +107,37 @@ manipulate(plot(stepfun(k.min:k.max,
            p=slider(0,
                     1,
                     initial=0.5))
+
+
+
+##### Poisson Distribution #####
+# X ~ Poisson(l) for l in [0,1]
+# A model for counts of infrequent events
+
+# Assumptions:
+#       The number of times the event can occur is an integer
+#       Probabilities are independent from one event to the next
+#       Probability is not a function of time
+#       Two events cannot occur at the exact same time
+#       Probability of occurrence in an interval is proportional to the length of that interval
+
+# l (Lambda) represents the average number of occurrences in an interval.
+# The probability of exactly x occurrences in a given interval is given by:
+#               (e^(-l))*(l^x)/factorial(x)
+#       where x is an integer.
+
+### PMF: ###
+x <- 1:30
+l.init <- 20
+e <- exp(1)
+
+y <- (e^(-l))*(l^x)/factorial(x)
+
+manipulate(plot(x,
+                (e^(-l))*(l^x)/factorial(x)),
+           l=slider(min=min(x),
+                    max=max(x),
+                    initial=l.init))
+
+
+

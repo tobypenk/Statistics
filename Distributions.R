@@ -7,6 +7,35 @@ library(stats)
 library(graphics)
 
 
+##### Discrete Uniform Distribution #####
+# Models an event which is equally likely for all x.
+# If f(x) = 1/k for x in 1:k, and 0 otherwise, then X ~ Unif(k)
+
+### PMF ###
+
+k.init <- 20
+
+manipulate(plot(x <- 1:k,
+                rep(1/k,k)),
+           k = slider(min=1,
+                      max=100,
+                      initial=k.init))
+
+
+### CDF ###
+
+k.init <- 20
+
+manipulate(plot(stepfun(x <- 1:k,
+                        cumsum(rep(1/k,k+1))),
+           verticals = F),
+           k = slider(min=1,
+                      max=100,
+                      initial=k.init))
+
+
+
+
 ##### Binomial Distribution #####
 # X ~ Binomial(n,p) for p in [0,1]
 # Models the likelihood that the number of heads is equal to x after n trials.
@@ -126,25 +155,38 @@ manipulate(plot(stepfun(k.min:k.max,
 #               (e^(-l))*(l^x)/factorial(x)
 #       where x is an integer.
 
+
 ### PMF: ###
-# Say the average number of heads per x flips is l; then what is the chance of getting
-#       exactly x heads?
+# Say the average number of successes per x flips is l; then what is the chance of getting
+#       exactly x successes?
+
 x.init <- 20
 l.init <- 10
 e <- exp(1)
 
-y <- (e^(-l))*(l^x)/factorial(x)
-
 manipulate(plot(x <- 0:n,
                 (e^(-l))*(l^x)/factorial(x)),
-           l=slider(min=min(x),
-                    max=max(x),
+           l=slider(min=0,
+                    max=200,
                     initial=l.init),
            n=slider(0,
                     200,
                     initial=x.init))
 
 ### CDF: ###
+# What is the chance of needing at least x flips to get l successes?
 
+x.init <- 20
+l.init <- 10
+e <- exp(1)
 
+manipulate(plot(stepfun(x <- 0:n,
+                        cumsum((e^(-l))*(l^c(x,n+1))/factorial(c(x,n+1)))),
+                verticals = F),
+           l=slider(min=0,
+                    max=200,
+                    initial=l.init),
+           n=slider(0,
+                    200,
+                    initial=x.init))
 

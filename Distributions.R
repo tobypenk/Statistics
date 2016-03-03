@@ -7,31 +7,41 @@ library(stats)
 library(graphics)
 
 
-##### Discrete Uniform Distribution #####
+##### Uniform Distribution #####
 # Models an event for which all x are equally likely.
-# If f(x) = 1/k for x in 1:k, and 0 otherwise, then X ~ Unif(k)
+# If f(x) = 1/(b-a) for x ∈ [a,b], and 0 otherwise, then X ~ Uniform(a,b)
+# Alternatively, for a discrete distribution, f(x) = 1/k for x ∈ 1:k, and 0 otherwise.
 
 ### PMF ###
 
-k.init <- 20
+a.init <- 5
+b.init <- 20
 
-manipulate(plot(x <- 1:k,
-                rep(1/k,k)),
-           k = slider(min=1,
-                      max=100,
-                      initial=k.init))
+manipulate(plot(x <- a:b,
+                rep(1/(b-a),b-a+1)),
+           a = slider(min=0,
+                      max=20,
+                      initial=a.init),
+           b = slider(min=20,
+                      max=40,
+                      initial = b.init))
 
 
 ### CDF ###
 
-k.init <- 20
 
-manipulate(plot(stepfun(x <- 1:k,
-                        cumsum(rep(1/k,k+1))),
-           verticals = F),
-           k = slider(min=1,
-                      max=100,
-                      initial=k.init))
+a.init <- 5
+b.init <- 20
+
+manipulate(plot(x <- a:b,
+                (x-a)/(b-a)),
+                #cumsum(rep(1/(b-a),b-a+1))),
+           a = slider(min=0,
+                      max=20,
+                      initial=a.init),
+           b = slider(min=20,
+                      max=40,
+                      initial = b.init))
 
 
 ##### Binomial Distribution #####

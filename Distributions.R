@@ -8,7 +8,7 @@ library(graphics)
 
 
 ##### Discrete Uniform Distribution #####
-# Models an event which is equally likely for all x.
+# Models an event for which all x are equally likely.
 # If f(x) = 1/k for x in 1:k, and 0 otherwise, then X ~ Unif(k)
 
 ### PMF ###
@@ -32,8 +32,6 @@ manipulate(plot(stepfun(x <- 1:k,
            k = slider(min=1,
                       max=100,
                       initial=k.init))
-
-
 
 
 ##### Binomial Distribution #####
@@ -71,6 +69,38 @@ manipulate(plot(x <- 0:n,
            n=slider(1,
                     1000,
                     initial=n.init))
+
+
+
+
+##### Bernoulli Distribution #####
+# Special case of the binomial distribution for which n = 1.
+# If P(X = 1) = p and P(X = 0) = 1 - p for some p ∈ [0, 1], then X ~ Bernoulli(p).
+# Support set = {0,1}
+
+### PMF ###
+p.init <- 0.5
+x <- c(0,1)
+
+manipulate(plot(x,
+                (p^x)*((1-p)^(1-x)),
+                asp=1),
+           p = slider(min=0,
+                      max=1,
+                      initial=p.init))
+
+
+### CDF ###
+
+p.init <- 0.5
+x <- c(0,1)
+
+manipulate(plot(x,
+                cumsum((p^x)*((1-p)^(1-x))),
+                asp=1),
+           p = slider(min=0,
+                      max=1,
+                      initial=p.init))
 
 
 

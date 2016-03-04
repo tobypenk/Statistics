@@ -114,6 +114,62 @@ manipulate(plot(x,
 
 
 
+##### Normal Distribution #####
+# Also called the Gaussian distribution.  Notation is X ~ N(μ,σ^2) if
+#       f(x) = (1/(σ*sqrt(2*pi)))*exp((1/2*σ^2)*(x-μ)^2); x ∈ R.
+# μ = Mean
+# σ^2 = Standard Deviation
+# When μ == 0 & σ^2 == 1; this is a Standard Normal Distribution; PDF = Φ(z); CDF = φ(z)
+# 
+
+
+### PMF ###
+
+x.min.init <- -20
+x.max.init <- 20
+μ.init <- 0
+σ.init <- 4
+
+manipulate(plot(x <- x.min:x.max,
+                (1/(σ*sqrt(2*pi)))*exp((-1/(2*σ^2))*(x-μ)^2)),
+           x.min = slider(min=-100,
+                          max=0,
+                          initial=x.min.init),
+           x.max = slider(min = 0,
+                          max = 100,
+                          initial = x.max.init),
+           μ = slider(min = -100,
+                      max = 100,
+                      initial = μ.init),
+           σ = slider(min = 0,
+                      max = 20,
+                      initial = σ.init))
+
+
+### CDF ###
+
+x.min.init <- -20
+x.max.init <- 20
+μ.init <- 0
+σ.init <- 4
+
+manipulate(plot(x <- x.min:x.max,
+                cumsum((1/(σ*sqrt(2*pi)))*exp((-1/(2*σ^2))*(x-μ)^2))),
+           x.min = slider(min=-100,
+                          max=0,
+                          initial=x.min.init),
+           x.max = slider(min = 0,
+                          max = 100,
+                          initial = x.max.init),
+           μ = slider(min = -100,
+                      max = 100,
+                      initial = μ.init),
+           σ = slider(min = -20,
+                      max = 20,
+                      initial = σ.init))
+
+
+
 ##### Geometric Distribution #####
 # X ~ Geom(p) for p in [0,1]
 # Models the number of trials needed before a success

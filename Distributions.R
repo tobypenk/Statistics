@@ -45,7 +45,7 @@ manipulate(plot(x <- a:b,
 
 
 ##### Binomial Distribution #####
-# X ~ Binomial(n,p) for p in [0,1]
+# X ~ Binomial(n,p) for p ∈ [0,1]
 # Models the likelihood that the number of heads is equal to x after n trials.
 
 ### PMF ###
@@ -170,8 +170,85 @@ manipulate(plot(x <- x.min:x.max,
 
 
 
+##### Exponential Distribution #####
+# X ~ Exp(β) for β > 0 and x > 0 if f(x) = (1/β)*e^(-x/β)
+# Used to model, for example, lifetimes of components or waiting times between events.
+# Models time between events in a Poisson process (continuous, independent, and constant
+#       average density).
+# Same as the Gamma distribution for X ~ Gamma(1,β)
+# 1/β is also sometimes notated λ, so that f(x) = λ*e^(-λx)
+# Memoryless in that P(X > a+b | X > a) = P(X > b).  In other words, if you've already
+#       waited an hour for a customer, your chances of waiting another hour are the
+#       same as your chance was of having to wait the first hour to begin with; there's
+#       no "buildup" that makes customers more likely with time (assuming customers are
+#       exponentially distributed).
+
+
+### PDF ###
+x.max.init <- 20
+β.init <- 1
+e <- exp(1)
+
+manipulate(plot(x <- 0:n,
+                (1/β)*e^(-x/β)),
+           n = slider(min=0,
+                      max=100,
+                      initial=x.max.init),
+           β = slider(min=0,
+                      max=10,
+                      initial=β.init))
+
+
+### CDF ###
+
+x.max.init <- 20
+β.init <- 1
+e <- exp(1)
+
+manipulate(plot(x <- 0:n,
+                1 - e^(-x/β)),
+           n = slider(min=0,
+                      max=100,
+                      initial=x.max.init),
+           β = slider(min=0,
+                      max=10,
+                      initial=β.init))
+
+
+
+
+##### Gamma Distribution #####
+# Γ(α) = integrate(y^(α-1)*e^(-y), 0, Inf) for α > 0.
+# X ~ Gamma(α,β) for x > 0, β > 0, and α > 0 if f(x) = 1/(β^α*Γ(α))*x^(α-1)*e^(-x/β)
+# Support set is x ∈ (0,Inf)
+# α = shape parameter; β = scale parameter.
+
+x.max.init <- 20
+α.init <- 1
+β.init <- 1
+e <- exp(1)
+
+gammaFunction <- function(x,α) {
+        x^(α-1)*exp(-x)
+}
+
+manipulate(plot(x <- seq(0,n,0.1),
+                1/((β^α)*integrate(function(x,t = α) {x^(t-1)*exp(-x)}, 0, Inf)$value)*x^(α-1)*e^(-x/β),
+                type="l"),
+           n = slider(min=0,
+                      max=200,
+                      initial=x.max.init),
+           α = slider(min=0,
+                      max=20,
+                      initial = α.init,
+                      step = 0.5),
+           β = slider(min=0,
+                      max=20,
+                      initial = β.init,
+                      step = 0.5))
+
 ##### Geometric Distribution #####
-# X ~ Geom(p) for p in [0,1]
+# X ~ Geom(p) for p ∈ [0,1]
 # Models the number of trials needed before a success
 
 ### PDFs: ###
@@ -236,7 +313,7 @@ manipulate(plot(stepfun(k.min:k.max,
 
 
 ##### Poisson Distribution #####
-# X ~ Poisson(l) for l in [0,1]
+# X ~ Poisson(l) for l ∈ [0,1]
 # A model for counts of infrequent events
 
 # Assumptions:

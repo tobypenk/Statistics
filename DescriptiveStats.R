@@ -1,7 +1,8 @@
 # This file is filled with functions that are already present in base R or 
 #       extension libraries; however, I am replicating them in order to become
-#       more familiar with their meanings.
+#       more familiar with their meanings and optimization.
 
+### sum() ###
 getSum <- function(numbers) {
         total <- 0
         
@@ -14,46 +15,22 @@ getSum <- function(numbers) {
         total
 }
 
-dotProduct <- function(vector1,
-                       vector2,
-                       cycle = F) {
-        # Returns the dot product of two vectors; the only difference between this
-        #       function and (vector1 * vector2) in R is the warning; this function will
-        #       throw an error if the vectors are of unequal lengths unless cycle = T.
+### prime test ###
+isPrime <- function(number) {
+        # Could be made more efficient by starting with a saved vector of primes up
+        #       to the square root of the given number.
         
-        if (length(vector1) != length(vector2)) {
-                if (cycle == F) {
-                        stop("Vectors are of unequal lengths.")
-                } else {
-                        if (length(vector1) > length(vector2)) {
-                                longer <- vector1
-                                shorter <- vector2
-                        } else {
-                                longer <- vector2
-                                shorter <- vector1
+        if (number %% 2 == 0) {
+                return(T)
+        } else {
+                for (i in 2:ceiling(sqrt(number))) {
+                        if (number %% i == 0) {
+                                return(F)
                         }
                 }
-        } else {
-                longer <- vector1
-                shorter <- vector2
         }
         
-        returnVector <- character(length(longer))
-        
-        for (i in 1:length(longer)) {
-                
-                if (i %% length(shorter) == 0) {
-                        shortIndex <- length(shorter)
-                } else {
-                        shortIndex <- i %% length(shorter)
-                }
-                
-                a <- longer[i]
-                b <- shorter[shortIndex]
-                returnVector[i] <- a * b
-        }
-        
-        returnVector
+        T
 }
 
 

@@ -228,10 +228,6 @@ x.max.init <- 20
 β.init <- 1
 e <- exp(1)
 
-gammaFunction <- function(x,α) {
-        x^(α-1)*exp(-x)
-}
-
 manipulate(plot(x <- seq(0,n,0.1),
                 1/((β^α)*integrate(function(x,t = α) {x^(t-1)*exp(-x)}, 0, Inf)$value)*x^(α-1)*e^(-x/β),
                 type="l"),
@@ -246,6 +242,46 @@ manipulate(plot(x <- seq(0,n,0.1),
                       max=20,
                       initial = β.init,
                       step = 0.5))
+
+
+
+##### Beta Distribution #####
+# Γ(α) = integrate(y^(α-1)*e^(-y), 0, Inf) for α > 0.
+# X ~ Beta(α,β) for β > 0 and α > 0, if f(x) = (Γ(α+β)/(Γ(α)*Γ(β)))*x^(α-1)*(1-x)^(β-1)
+# Support set is x ∈ (0,1)
+# α = shape parameter; β = scale parameter.
+
+
+### PDF ###
+
+x <- seq(0,1,0.001)
+α.init <- 0.5
+β.init <- 0.5
+
+manipulate(plot(x,
+                integrate(function(x, t = α + β) {x^((t)-1)*exp(-x)},0,Inf)$value/
+                integrate(function(x, t = α) {x^((t)-1)*exp(-x)},0,Inf)$value/
+                integrate(function(x, t = β) {x^((t)-1)*exp(-x)},0,Inf)$value*
+                x^(α-1)*
+                (1-x)^(β-1),
+                type="l",
+                ylab=""),
+           α=slider(min=0,
+                    max=10,
+                    initial=α.init,
+                    step=0.01),
+           β=slider(min=0,
+                    max=10,
+                    initial=β.init,
+                    step=0.01))
+
+
+### CDF ###
+# Incomplete Beta function: B(x, a, b) = integrate(t^(a-1)*(1-t)^(b-1),0,x)
+# Regularized Incomplete Beta function: Ix(a,b) = B(x, a, b)/B(a, b)
+
+
+
 
 ##### Geometric Distribution #####
 # X ~ Geom(p) for p ∈ [0,1]

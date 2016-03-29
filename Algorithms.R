@@ -31,3 +31,55 @@ bubbleSort <- function(x) {
         }
         x
 }
+
+nearestNeighbor <- function(x,y,startIndex) {
+        
+        df <- data.frame(x=x,y=y,i=seq(1:length(x)),p=0)
+        
+        getDistance <- function(index.one,index.two) {
+                
+                sqrt((df$x[index.one]-df$x[index.two])^2+(df$y[index.one]-df$y[index.two])^2)
+        }
+        
+        df$p[startIndex] <- 1
+        totalDist <- 0
+        
+        for (i in 2:nrow(df)) {
+                subDf <- df[df$p == 0,]
+
+                last.i <- df$i[df$p == max(df$p)]
+                
+                minDist <- getDistance(last.i,subDf$i[1])
+                minInd <- subDf$i[1]
+                
+                for (j in 1:nrow(subDf)) {
+
+                        thisDist <- getDistance(last.i,subDf$i[j])
+                        
+                        if (thisDist < minDist) {
+                                minDist <- thisDist
+                                minInd <- subDf$i[j]
+                        }
+                }
+                totalDist <- totalDist + minDist
+                df$p[df$i == minInd] <- max(df$p) + 1
+        }
+        
+        totalDist <- totalDist + getDistance(1,df$i[df$p == max(df$p)])
+        
+        print(totalDist)
+        df
+}
+
+set.seed(1224)
+n <- 50
+x <- round(rnorm(n)*n)
+y <- round(rnorm(n)*n)
+
+df <- nearestNeighbor(x,y,2)
+
+library(ggplot2)
+
+ggplot(df, aes(x,y)) +
+        geom_point() +
+        geom_text(aes(label=p),nudge_y = n/10)

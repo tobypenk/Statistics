@@ -83,3 +83,98 @@ library(ggplot2)
 ggplot(df, aes(x,y)) +
         geom_point() +
         geom_text(aes(label=p),nudge_y = n/10)
+
+
+
+
+
+
+# Chapter 2 exercises
+
+## 2-1
+mystery <- function(n) {
+        r <- 0
+        
+        for (i in 1:(n-1)) {
+                for (j in (i+1):n) {
+                        for (k in 1:j) {
+                                r <- r + 1
+                        }
+                }
+        }
+        
+        r
+}
+
+# The answer:
+mysteryCalc <- function(n) {
+        # This turns out to be a cubic function, which is not surprising considering
+        #       that the problem statement consists of three nested loops.
+        (1/3)*n*(n+1)*(n-1)
+}
+
+x <- 1:20
+y <- c()
+for (i in 1:20) {y <- c(y,mystery(i))}
+
+plot(x,y)
+
+
+
+## 2-2
+pesky <- function(n) {
+        r <- 0
+        
+        for (i in 1:n) {
+                for (j in 1:i) {
+                        for (k in j:(i+j)) {
+                                r <- r + 1
+                        }
+                }
+        }
+        
+        r
+}
+
+# The answer:
+peskyCalc <- function(n) {
+        (1/6)*n*(n+1)*((2*n)+1) + (1/2)*n*(n+1)
+}
+
+x <- 1:20
+y <- c()
+for (i in 1:20) {y <- c(y,pesky(i))}
+
+plot(x,y)
+
+
+
+## 2-3
+prestiferous <- function(n) {
+        r <- 0
+        
+        for (i in 1:n) {
+                for (j in 1:i) {
+                        for (k in j:(i+j)) {
+                                for (l in 1:(i+j-k)) {
+                                        r <- r + 1
+                                }
+                        }
+                }
+        }
+        
+        r
+}
+
+prestyCalc <- function(n) {
+        (1/4)*(n^4 + 4*n^3 + 5*n^2 + 2*n)
+}
+
+x <- 1:20
+y <- c()
+for (i in 1:20) {y <- c(y,prestiferous(i))}
+
+plot(x,y)
+
+
+

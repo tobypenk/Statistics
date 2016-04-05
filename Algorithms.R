@@ -167,8 +167,21 @@ prestiferous <- function(n) {
 }
 
 prestyCalc <- function(n) {
-        (1/4)*(n^4 + 4*n^3 + 5*n^2 + 2*n)
+        
+        total <- 0
+        
+        for (i in 1:n) {
+                for (j in 1:i) {
+                        for (k in j:(i+j)) {
+                                total <- total + (i + j - k)
+                        }
+                }
+        }
+        total
 }
+
+print(prestiferous(12))
+print(prestyCalc(12))
 
 x <- 1:20
 y <- c()

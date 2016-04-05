@@ -5,9 +5,13 @@ text {
 html, body {
   margin: 0; }
 
-.chart {
-  margin-top: 20px;
-  padding-top: 0px;
-  margin-left: 10px; }
+.canvas,
+.canvas2 {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%); }
+
+.bar.selected {
+  fill: green; }
 
 /*# sourceMappingURL=d3.css.map */

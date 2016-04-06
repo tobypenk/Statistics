@@ -54,6 +54,7 @@ $(document).ready(function(){
         var padding = 20;
         var height = 200;
         var hCyl = 100;
+        var hHp = 60;
         
         var x = d3.scale.linear()
             .domain([0,rows.length])
@@ -69,7 +70,7 @@ $(document).ready(function(){
             
         var yHp = d3.scale.linear()
             .domain([0,d3.max(rows,function(datum) {return datum.hp;})])
-            .range([0,hCyl]);
+            .range([0,hHp]);
             
         var barDemo = d3.select("#chart1")
             .append("svg")
@@ -224,6 +225,8 @@ $(document).ready(function(){
         
         $(this).addClass("highlighted");
     });
+    
+    
     
     /*
     $(document).on("mouseenter",".bar",function(){

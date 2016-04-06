@@ -28,18 +28,15 @@ shinyServer(function(input,output) {
                 
                 ggplot(training, aes(x,y)) +
                         geom_point(aes(color="Training")) +
-                        stat_function(fun=fn,size=1.5,aes(color="Predicted Fit")) + 
-                        stat_function(fun=fn2,size=1.5,aes(color="Actual Fit")) +
                         geom_point(data=testing,aes(color="Testing")) +
-                        scale_colour_manual(name='', values=c("Training"="red",
-                                                              "Testing"="blue",
-                                                              "Predicted Fit"="darkred",
-                                                              "Actual Fit"="darkblue"))
-
-                #plot(training,col="blue")
-                #points(testing,col="green")
-                #curve(fn,min,max,add=T,lwd=3,col="red")
-                #curve(fn2,min,max,add=T,lwd=3,col="blue")
+                        stat_function(fun=fn,size=2,aes(color="Predicted Fit")) + 
+                        stat_function(fun=fn2,size=2,aes(color="Actual Fit")) +
+                        scale_colour_manual(name='', values=c("Actual Fit"="blue",
+                                                              "Testing"="darkblue",
+                                                              "Predicted Fit"="red",
+                                                              "Training"="darkred"
+                                                              )
+                                            )
         })
         
         output$dataTable <- renderDataTable({

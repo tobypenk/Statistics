@@ -1,15 +1,96 @@
+header
+    font-family: 'Slabo 27px'
+    font-size: 200%
+    margin-top: 10px
+    margin-bottom: -40px
+    text-align: center
+
 text
-    font-family: 'Slabo 27px', serif
-    color: red
+    font-family: 'Slabo 27px'
 
 html, body
     margin: 0
 
 .canvas,
-.canvas2
+.canvas2,
+.canvas3,
+.chart,
+.chartContainer
     margin-left: 50%
     transform: translateX(-50%)
     -webkit-transform: translateX(-50%)
+    width: 864px
     
-.bar.selected
-    fill: green
+.canvas,
+.canvas2,
+.canvas3
+.chart
+    margin-left: 50%
+    transform: translateX(-50%)
+    -webkit-transform: translateX(-50%)
+    position: relative
+    width: 864px
+    
+.chart::before
+    position: absolute
+    font-family: 'Slabo 27px'
+    font-size: 240%
+    color: tomato
+    transform: translateX(-130%)
+    -webkit-transform: translateX(-130%)
+    
+.chart1::before
+    content: "MPG"
+    bottom: 10px
+
+.chart2::before
+    content: "CYL"
+    top: 6px
+    
+.chart3::before
+    content: "HP"
+    bottom: 10px
+
+.chart4::before
+    content: "GEAR"
+    top: 6px
+
+
+    
+.flipperWrapper
+    perspective:  1000
+    -webkit-perspective:  1000
+    background:  transparent
+    backface-visibility: hidden
+    -webkit-backface-visibility:  hidden
+    
+.chartContainer
+    transition: all .2s
+    -webkit-transition: all .2s
+    transform-style:  preserve-3d
+    -webkit-transform-style:  preserve-3d
+    
+.chartContainer2
+    margin-top: -278px
+    height: 304px
+    transform: rotateX(92deg) translateX(-50%)
+    
+.flipperWrapper.flipped .chartContainer2
+    margin-top: -326px
+    height: 404px
+    transform: rotateX(0) translateX(-50%)
+    
+.flipperWrapper.flipped > .chartContainer1
+    transform: translateX(-50%) rotateX(-88deg) translateZ(70px)
+    -webkit-transform: translateX(-50%) rotateX(-88deg) translateZ(70px)
+
+.flipButton
+    position: absolute
+    right: 20px
+    top: 20px
+    height: 50px
+    width: 50px
+    background-color: red
+    
+.bar.highlighted
+    fill: orange

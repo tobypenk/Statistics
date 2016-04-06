@@ -1,0 +1,132 @@
+*
+    font-family: "Slabo 27px"
+
+header
+    text-align: center
+    font-size: 300%
+    margin-top: 10px
+    margin-bottom: 10px
+    
+::selection
+    background-color: transparent
+::moz-selection
+    background-color: transparent
+::webkit-selection
+    background-color: transparent
+
+text,
+.svg,
+.barText
+    user-select: none
+
+.canvas
+    width: 100%
+    height: 100%
+    position: absolute
+    
+.flipperWrapper
+    position: relative
+    width: 800px
+    height: 300px
+    margin-left: 50%
+    transform: translateX(-50%)
+    -webkit-transform: translateX(-50%)
+    perspective: 1000
+    -webkit-perspective: 1000
+    
+.flipperWrapper:hover
+    cursor: grab
+    cursor: -webkit-grab
+    
+.flipperWrapper:active
+    cursor: grabbing
+    cursor: -webkit-grabbing
+    
+.chart
+    height: 50%
+    width: 100%
+    
+.chart::before
+    font-size: 240%
+    position: absolute
+    background-color: tomato
+    border-radius: 4px
+    
+.sorter
+    position: absolute
+    width: 50px
+    height: 50px
+    background: url("sort.png")
+    background-size: 80%
+    background-position: center center
+    background-repeat: no-repeat
+    right: -80px
+    top: 50%
+    border-radius: 4px
+    background-color: white
+    
+.sorter,
+.chart::before
+    border: 1px solid grey
+    
+.chart1 > .sorter,
+.chart3 > .sorter
+    transform: translateY(-150%)
+    -webkit-transform: translateY(-150%)
+
+.chart2 > .sorter,
+.chart4 > .sorter
+    transform: translateY(50%)
+    -webkit-transform: translateY(50%)
+    
+.sorter:hover
+    background-color: tomato
+    
+.chart1::before,
+.chart3::before
+    top: 50%
+    transform: translateX(-120%) translateY(-120%)
+    -webkit-transform: translateX(-120%) translateY(-120%)
+
+.chart2::before,
+.chart4::before
+    transform: translateX(-120%) translateY(20%)
+    -webkit-transform: translateX(-120%) translateY(20%)
+
+.chart1::before
+    content: "MPG"
+    padding-left: 8px
+    padding-right: 8px
+    
+.chart2::before
+    content: "Cyl"
+    padding-left: 8px
+    padding-right: 8px
+    
+.chart3::before
+    content: "Gear"
+    padding-left: 8px
+    padding-right: 8px
+    
+.chart4::before
+    content: "HP"
+    padding-left: 8px
+    padding-right: 8px
+    
+    
+.bar
+    border-bottom: 3px solid red
+    box-sizing: border-box
+    
+.canvas2
+    transform: rotateX(90deg)
+    
+.axisRuler
+    position: absolute
+    height: 2px
+    width: 100%
+    background-color: red
+    transform: translateY(-50%) translateZ(200px)
+    -webkit-transform: translateY(-50%) translateZ(200px)
+    top: 50%
+    z-index: 100

@@ -1,0 +1,20 @@
+header {
+  font-family: "Slabo 27px";
+  font-size: 200%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center; }
+
+text {
+  font-family: "Slabo 27px"; }
+
+html, body {
+  margin: 0; }
+
+.canvas,
+.canvas2 {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%); }
+
+/*# sourceMappingURL=d2.css.map */

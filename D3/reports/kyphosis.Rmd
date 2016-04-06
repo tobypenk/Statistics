@@ -1,0 +1,84 @@
+---
+title: "The kid's got backbone: predicting Kyphosis incidence"
+author: "Toby Penk"
+date: "April 3, 2016"
+output: html_document
+---
+
+
+# Summary #
+
+Spinal injuries and deformations can negatively affect a person's entire life.  While regular screenings and doctors' expertise should play a role in the early detection and treatment of such abnormalities, data can and should also play a role in the assessment of a person's risk and likely response to surgery.
+
+We've got some data on children who have had corrective spinal surgery, and a close study of this data could yield some insights into better treatment and prediction of complications.  We'd like to use this data to predict the success of surgery and thus better enable doctors to counsel their patients and to prepare for what are often challenging surgical scnearios.
+
+
+## Exploration ##
+
+What does the data set look like?
+
+```{r echo=F}
+library(rpart)
+print(head(kyphosis))
+```
+
+We're looking a few things that one might reasonably expect to affect spinal surgery outcomes:
+
+* Age - do younger or older patients carry higher risk?  Age is measured in months.
+* Number - refers to vertebrare.  If more vertebrae are affected, is the prognosis worse?
+* Start - Which vertebra is the topmost affected one?  Do patients with higher starting points fare better or worse?
+* Kyphosis - The outcome variable; a factor in the form of "present"/"absent" depending on the patient's actual outcome.
+
+How spread are the variables?  Let's look at the five-number summary of all the numerical variables:
+
+```{r}
+library(ggplot2)
+library(grid)
+library(gridExtra)
+
+g <- ggplot(kyphosis,aes(Age,Age)) +
+        geom_boxplot()
+        
+a <- qplot(kyphosis$Age,x="Age",geom="boxplot")
+b <- qplot(kyphosis$Start,x="Start",geom="boxplot")
+c <- qplot(kyphosis$Number,x="Number",geom="boxplot")
+
+lst <- list(a, b, c)
+do.call(grid.arrange, c(lst, ncol=3))
+```
+
+"Start" appears to have a long left tail, whereas "Number" has a long right tail.  Are they inversely correlated at all?
+
+```{r}
+plot(kyphosis$Number,kyphosis$Start)
+l <- lm(Start ~ Number, data=kyphosis)
+getX <- function(x) {
+        x * l$coefficients[2] + l$coefficients[1]
+}
+curve(getX,min(kyphosis$Number),max(kyphosis$Number),add=T)
+```
+
+Indeed, there is a negative correlation between Start and Number.  This makes sense, as the lower the Start, the higher up the person's spine the condition started, and therefore, the more subsequent vertebrae are in danger of being affected.  This suggests that individuals with higher (i.e., lower-numbered) start points are at higher risk of a more severe condition - assuming, of course, that a larger Number of affected vertebrae is indeed a worse outcome.
+
+## Methods ##
+
+Which of these variables predict a severe outcome?  Let's make a simple model:
+
+```{r}
+kyphosis$Kyphosis <- factor(kyphosis$Kyphosis)
+fit <- glm(Kyphosis ~ Age + Number + Start, data=kyphosis, family="binomial")
+summary(fit)$coefficients
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
